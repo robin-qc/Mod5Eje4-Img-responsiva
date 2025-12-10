@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galería de imágenes responsive con CSS Grid auto-fit y efectos interactivos">
+    <title>Galería Responsive | CSS Grid Auto-fit</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="topbar">
+                <div class="topbar-left">
+                    <div class="brand">
+                        <strong>UPDS</strong>
+                    </div>
+                    <button id="themeToggle" class="theme-toggle" title="Cambiar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+
+                <div class="topbar-right">
+                    <div class="student-info" id="studentToggle">
+                        <div class="student-avatar-placeholder" id="studentAvatarPlaceholder">Sin foto</div>
+                        <div class="student-meta">
+                            <div class="student-name">Estudiante: <strong id="studentName">Maycol Quispe</strong></div>
+                            <div class="student-data">Correo: <span id="studentEmail">maycol.quispe@example.com</span></div>
+                        </div>
+                        <button class="student-arrow" id="studentArrow" aria-label="Desplegar datos"><i class="fas fa-chevron-down"></i></button>
+                        <input type="file" id="studentPhotoInput" accept="image/*" style="display:none">
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-content">
+                <h1><i class="fas fa-camera-retro"></i> Galería Responsive</h1>
+                <p class="subtitle">Grid con auto-fit y minmax para una experiencia visual óptima</p>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="nature">Naturaleza</button>
+                    <button class="filter-btn" data-filter="urban">Urbano</button>
+                    <button class="filter-btn" data-filter="water">Agua</button>
+                    <button class="filter-btn" data-filter="tech">Tecnología</button>
+                </div>
+            </div>
+
+            <!-- Panel desplegable de datos del estudiante -->
+            <div class="student-details-panel" id="studentDetailsPanel" aria-hidden="true">
+                <div class="details-inner">
+                    <div class="detail-row">
+                        <label>Nombre</label>
+                        <input type="text" id="inputStudentName" placeholder="Nombre completo">
+                    </div>
+                    <div class="detail-row">
+                        <label>Correo</label>
+                        <input type="email" id="inputStudentEmail" placeholder="correo@ejemplo.com">
+                    </div>
+                    <div class="detail-row">
+                        <label>Teléfono</label>
+                        <input type="text" id="inputStudentPhone" placeholder="+591 7xxxxxxx">
+                    </div>
+                    <div class="detail-actions">
+                        <button id="cancelStudent" class="btn">Cancelar</button>
+                        <button id="saveStudent" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="gallery-stats">
+                <p><span id="image-count">12</span> imágenes | <span id="current-cols">4</span> columnas</p>
+            </div>
+            
+            <div class="gallery">
+                <!-- Cada item tiene un atributo data-category para el filtrado -->
+                <div class="gallery-item" data-category="nature">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop" alt="Montaña" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Montañas</h3>
+                                <p>Paisaje natural</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-mountain"></i> Altura: 2,500m</span>
+                                    <span><i class="far fa-calendar-alt"></i> Verano</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-tree"></i> Naturaleza</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 245</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="nature">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&h=400&fit=crop" alt="Bosque" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Bosque</h3>
+                                <p>Naturaleza verde</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-leaf"></i> Selva tropical</span>
+                                    <span><i class="fas fa-sun"></i> Amanecer</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-tree"></i> Naturaleza</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 189</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="urban">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600&h=400&fit=crop" alt="Ciudad" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Ciudad</h3>
+                                <p>Vida urbana</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-city"></i> Metrópolis</span>
+                                    <span><i class="fas fa-building"></i> Rascacielos</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-building"></i> Urbano</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 312</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="water">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600&h=400&fit=crop" alt="Lago" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Lago</h3>
+                                <p>Agua tranquila</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-water"></i> Agua dulce</span>
+                                    <span><i class="fas fa-fish"></i> Fauna local</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-water"></i> Agua</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 278</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="nature">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=600&h=400&fit=crop" alt="Carretera" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Carretera</h3>
+                                <p>Aventura</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-road"></i> Vía panorámica</span>
+                                    <span><i class="fas fa-car"></i> Viaje</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-tree"></i> Naturaleza</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 154</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="tech">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=400&fit=crop" alt="Tecnología" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Tecnología</h3>
+                                <p>Digital</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-microchip"></i> Circuitos</span>
+                                    <span><i class="fas fa-code"></i> Programación</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-laptop-code"></i> Tecnología</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 421</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="nature">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=400&fit=crop" alt="Bosque" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Sendero</h3>
+                                <p>Camino natural</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-hiking"></i> Senderismo</span>
+                                    <span><i class="fas fa-tree"></i> Bosque</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-tree"></i> Naturaleza</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 198</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="water">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&h=400&fit=crop" alt="Playa" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Playa</h3>
+                                <p>Mar y arena</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-umbrella-beach"></i> Costa</span>
+                                    <span><i class="fas fa-water"></i> Oceáno</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-water"></i> Agua</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 367</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="nature">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600&h=400&fit=crop" alt="Atardecer" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Atardecer</h3>
+                                <p>Golden hour</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-sun"></i> Ocaso</span>
+                                    <span><i class="fas fa-palette"></i> Colores cálidos</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-tree"></i> Naturaleza</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 432</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="water">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&h=400&fit=crop" alt="Mar" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Océano</h3>
+                                <p>Profundo azul</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-water"></i> Mar abierto</span>
+                                    <span><i class="fas fa-ship"></i> Navegación</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-water"></i> Agua</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 289</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="nature">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1465146633011-14f8e0781093?w=600&h=400&fit=crop" alt="Flores" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Flores</h3>
+                                <p>Jardín colorido</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-seedling"></i> Flora</span>
+                                    <span><i class="fas fa-bug"></i> Polinización</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-tree"></i> Naturaleza</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 376</span>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="nature">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=600&h=400&fit=crop" alt="Montaña Nevada" loading="lazy">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Nieve</h3>
+                                <p>Picos blancos</p>
+                                <div class="image-info">
+                                    <span><i class="fas fa-snowflake"></i> Invierno</span>
+                                    <span><i class="fas fa-mountain"></i> Alpes</span>
+                                </div>
+                                <button class="view-btn" aria-label="Ver imagen ampliada">Ver más <i class="fas fa-expand-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item-footer">
+                        <span class="item-category"><i class="fas fa-tree"></i> Naturaleza</span>
+                        <span class="item-likes"><i class="far fa-heart"></i> 267</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid-controls">
+                <div class="columns-control">
+                    <span>Columnas:</span>
+                    <button class="col-btn" data-cols="1">1</button>
+                    <button class="col-btn" data-cols="2">2</button>
+                    <button class="col-btn active" data-cols="4">Auto</button>
+                </div>
+                <div class="view-toggle">
+                    <span>Vista:</span>
+                    <button class="view-mode-btn active" data-view="grid"><i class="fas fa-th"></i></button>
+                    <button class="view-mode-btn" data-view="masonry"><i class="fas fa-th-large"></i></button>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Galería responsive con CSS Grid Auto-fit &copy; 2023 | <i class="fas fa-heart"></i> Desarrollado con pasión</p>
+        </footer>
+    </div>
+
+    <!-- Modal para vista ampliada -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modalImage" src="" alt="Imagen ampliada">
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
